@@ -3,16 +3,14 @@ from snowflake.snowpark.context import get_active_session
 
 # Snowflakeセッションの取得
 # Streamlit in Snowflakeでは、get_active_session()を使用して
-# 自動的に現在のセッションコンテキストを取得できます
+# 自動的に現在のセッションコンテキストを取得し、テーブルにアクセス可能
 session = get_active_session()
 
 # アプリケーションのタイトル設定
 # スペイン語圏の国々の人口を表示することを明示
 st.title("Spanish Speaking Countries by Pop")
 
-# 通常テーブルからデータを取得
-# POPULATION_DATAは、S3からデータをロード済みの通常テーブル
-# 通常テーブルを使用することで、高速なクエリパフォーマンスを実現
+# テーブルからデータを取得
 created_dataframe = session.table("FROSTY_FRIDAY.POPULATION_DATA.POPULATION_DATA")
 
 # SnowparkデータフレームをPandasデータフレームに変換
