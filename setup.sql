@@ -19,8 +19,7 @@ USE SCHEMA POPULATION_DATA;
 -- ステージは、外部ストレージとSnowflakeを繋ぐ橋渡しの役割を果たします
 CREATE OR REPLACE STAGE population_stage
     URL = 's3://frostyfridaychallenges/challenge_68/'
-    FILE_FORMAT = (TYPE = 'CSV' FIELD_OPTIONALLY_ENCLOSED_BY = '"' SKIP_HEADER = 1);
-
+;
 -- ========================================================================
 -- 3. ステージ内のファイル確認
 -- ========================================================================
@@ -60,7 +59,7 @@ FROM (
     FROM @population_stage
 )
 FILE_FORMAT = (TYPE = JSON STRIP_OUTER_ARRAY = TRUE)
-ON_ERROR = 'CONTINUE';
+;
 
 -- ========================================================================
 -- 6. ロードされたデータの確認
