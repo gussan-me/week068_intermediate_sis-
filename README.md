@@ -1,6 +1,5 @@
-# Snowflake 世界人口データ可視化プロジェクト
-
-このプロジェクトは、S3に保存された世界人口データをSnowflakeで取得し、Streamlitで可視化するサンプルです。
+# Amazon S3のスペイン語圏の人口データを可視化する
+S3に保存されたスペイン語圏の人口データをSnowflakeで取得し、Streamlitで可視化します。
 
 ## 概要
 
@@ -23,11 +22,10 @@ USE SCHEMA POPULATION_DATA;
 ```
 
 #### ステップ2: 外部ステージの作成
-S3バケットへのアクセスを設定します。
+S3バケットへのアクセスURIを指定して外侮ステージを作成します。
 ```sql
 CREATE OR REPLACE STAGE population_stage
-    URL = 's3://frostyfridaychallenges/challenge_68/'
-    FILE_FORMAT = (TYPE = 'CSV' FIELD_OPTIONALLY_ENCLOSED_BY = '"' SKIP_HEADER = 1);
+    URL = 's3://frostyfridaychallenges/challenge_68/';
 ```
 
 #### ステップ3: データの確認（オプション）
@@ -59,7 +57,6 @@ FROM (
     FROM @population_stage
 )
 FILE_FORMAT = (TYPE = JSON STRIP_OUTER_ARRAY = TRUE)
-ON_ERROR = 'CONTINUE';
 ```
 
 #### ステップ6: データの確認
